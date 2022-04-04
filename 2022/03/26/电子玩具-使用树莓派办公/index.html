@@ -4,13 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>Hello world!</title>
+  <title>电子玩具_使用树莓派办公 | Hello world!</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hello world!">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="设备和起因起因在20年初疫情的时候因为实在是无聊，用475大洋购买了一台树莓派4b，结果现在翻了一倍还多，本着不能让高价产品白白浪费的想法，再加上手里的电脑全是暴力风扇，不适宜24小时开机随时写代码和一些灵感，于是决定使用树莓派搭建一台低功耗，安静的小型办公用设备。 系统选择可选择的树莓派的系统实际上有不少，从为游戏机开发的lakka，到为了媒体开发的kodi，再有就是传统的ubuntu和rasp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="电子玩具_使用树莓派办公">
+<meta property="og:url" content="http://example.com/2022/03/26/%E7%94%B5%E5%AD%90%E7%8E%A9%E5%85%B7-%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E5%8A%9E%E5%85%AC/index.html">
 <meta property="og:site_name" content="Hello world!">
+<meta property="og:description" content="设备和起因起因在20年初疫情的时候因为实在是无聊，用475大洋购买了一台树莓派4b，结果现在翻了一倍还多，本着不能让高价产品白白浪费的想法，再加上手里的电脑全是暴力风扇，不适宜24小时开机随时写代码和一些灵感，于是决定使用树莓派搭建一台低功耗，安静的小型办公用设备。 系统选择可选择的树莓派的系统实际上有不少，从为游戏机开发的lakka，到为了媒体开发的kodi，再有就是传统的ubuntu和rasp">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-03-26T15:31:34.000Z">
+<meta property="article:modified_time" content="2022-04-04T12:26:14.457Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -69,76 +73,7 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-c-有关-h和-cpp文件的一些" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/03/29/c-%E6%9C%89%E5%85%B3-h%E5%92%8C-cpp%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%80%E4%BA%9B/" class="article-date">
-  <time class="dt-published" datetime="2022-03-29T15:46:30.000Z" itemprop="datePublished">2022-03-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/03/29/c-%E6%9C%89%E5%85%B3-h%E5%92%8C-cpp%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%80%E4%BA%9B/">c++-有关.h和.cpp文件的一些</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>最近在做408的练习题，数据结构部分是真的麻烦，还要手写代码，于是我新建了一个代码仓库用来上级实操，并且通过与标准答案输出结果对比的方法进行测试。在使用的过程中，有很多代码都是单纯的函数，于是我本来计划偷懒，直接写了“test.cpp”文件，本来以为“<em>include</em>”只是单纯的将代码包含进来，等编译器报错之后才意识到这样是错误的，会报一个元素重复错误。</p>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><pre><code>//main.cpp
-    #include&lt;iostream&gt;
-    #include&quot;helloworld.cpp&quot;
-    using namespace std;
-    int main()&#123;
-            hw();
-    &#125;
-
-    //helloworld.h
-    #include&lt;iostream&gt;
-    using namespace std;
-    void hw();
-
-    //helloworld.cpp
-    #include&quot;helloworld.h&quot;
-    void hw()&#123;
-            cout&lt;&lt;&quot;hello world&quot;&lt;&lt;endl;
-    &#125;
-</code></pre>
-<h1 id="简单经验"><a href="#简单经验" class="headerlink" title="简单经验"></a>简单经验</h1><p>在vs实际编译的过程中，实际上会对所有的代码文件同时编译，这样就会存在两个”test.cpp”里的内容，而h文件则是不会被编译的，因此不会产生这样的问题，但是这样的答案显然只停留在了表象，那么更深层次的原因是什么？</p>
-<h1 id="一些测试"><a href="#一些测试" class="headerlink" title="一些测试"></a>一些测试</h1><h2 id="代码的编译过程"><a href="#代码的编译过程" class="headerlink" title="代码的编译过程"></a>代码的编译过程</h2><p>通过最基础的编译原理课程，软件的编写分成“预处理-编辑-汇编-链接”过程，在预处理过程中，头文件和宏定义被展开，那么也是在这一步，include的东西被包含进代码，使用gcc进行分步操作就可以看到。</p>
-<p>在连接器中，整个代码的不同部分被链接成一体，理论是也是在这一步，产生了错误，gcc的报错如下</p>
-<h2 id="program-once"><a href="#program-once" class="headerlink" title="program once"></a>program once</h2><p>由编译器实现的，避免一个文件被include多次的方法，使用vs新建一个.h文件时，就会自动包含这个项目，那么问题来了，使用progmram once这个参数能不能避免.cpp文件被包含两次呢？</p>
-<h2 id="gcc下进行测试"><a href="#gcc下进行测试" class="headerlink" title="gcc下进行测试"></a>gcc下进行测试</h2><p>在gcc下，直接使用 g++ main.cpp，能成功输出，使用g++ main.cpp helloworld.cpp,会提示multiple definition,当include的东西变成helloworld.h，也就是说包含头文件时，执行g++ main.cpp helloworld.cpp和vs的情况一样。</p>
-<p>进行逐步编辑</p>
-<h3 id="g-main"><a href="#g-main" class="headerlink" title="g++ main"></a>g++ main</h3><p>在使用 -E进行预处理的时候，helloworld相关文件已经被包含到了main代码里面，也就是说，这种情况下，后续编译的只有main.i这一文件，因此不会出错。</p>
-<h3 id="g-main-cpp-helloworld-cpp"><a href="#g-main-cpp-helloworld-cpp" class="headerlink" title="g++ main.cpp helloworld.cpp"></a>g++ main.cpp helloworld.cpp</h3><p>这个时候要对main.cpp和helloworld分别进行预处理，单独进行程序编辑的套路并在链接后生成可执行文件。<br>但是如果将include的东西改成cpp文件，就会在链接时报错。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>之前我习惯include .cpp文件的做法有点外打正着了，是之前习惯gcc套壳的垃圾编译器留下的不规范行为，那种编译器大概很耿直的直接编译我选择的文件，没管别的文件，也没管链接问题，下次能再找到它的话可以试试能不能按照规范的代码方式编译，要是那个编译器没整链接的接口的话报错就好玩了，另外也可以看出来，使用.h文件，在里面写代码，也会留下类似的问题，影响分工编程时候的各自编译，毕竟不能单独编译.h文件。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/29/c-%E6%9C%89%E5%85%B3-h%E5%92%8C-cpp%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%80%E4%BA%9B/" data-id="cl1cbwpl90000558e2kcg3zf4" data-title="c++-有关.h和.cpp文件的一些" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-电子玩具-使用树莓派办公" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-电子玩具-使用树莓派办公" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/03/26/%E7%94%B5%E5%AD%90%E7%8E%A9%E5%85%B7-%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E5%8A%9E%E5%85%AC/" class="article-date">
   <time class="dt-published" datetime="2022-03-26T15:31:34.000Z" itemprop="datePublished">2022-03-26</time>
@@ -151,8 +86,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/03/26/%E7%94%B5%E5%AD%90%E7%8E%A9%E5%85%B7-%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E5%8A%9E%E5%85%AC/">电子玩具_使用树莓派办公</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      电子玩具_使用树莓派办公
     </h1>
   
 
@@ -221,101 +156,28 @@ sudo dpkg -i &quot;path&quot;
     </footer>
   </div>
   
-</article>
-
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-text1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/03/24/text1/" class="article-date">
-  <time class="dt-published" datetime="2022-03-24T12:47:23.000Z" itemprop="datePublished">2022-03-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <a href="/2022/03/29/c-%E6%9C%89%E5%85%B3-h%E5%92%8C-cpp%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%80%E4%BA%9B/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
         
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/03/24/text1/">text1</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>this is a test blog<br>这是一条测试用的博客 </p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/24/text1/" data-id="cl14zt8bg0000qd8e3gicfdjv" data-title="text1" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/03/22/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2022-03-22T10:29:45.671Z" itemprop="datePublished">2022-03-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+          c++-有关.h和.cpp文件的一些
         
+      </div>
+    </a>
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/03/22/hello-world/">Hello World</a>
-    </h1>
   
+    <a href="/2022/03/24/text1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">text1</div>
+    </a>
+  
+</nav>
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/22/hello-world/" data-id="cl120bpau0000dd8ecbjz728x" data-title="Hello World" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-
-  
 
 
 </section>
