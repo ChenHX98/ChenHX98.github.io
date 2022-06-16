@@ -71,6 +71,88 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-esxi-硬盘错误读写记录及尝试修改" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/16/esxi-%E7%A1%AC%E7%9B%98%E9%94%99%E8%AF%AF%E8%AF%BB%E5%86%99%E8%AE%B0%E5%BD%95%E5%8F%8A%E5%B0%9D%E8%AF%95%E4%BF%AE%E6%94%B9/" class="article-date">
+  <time class="dt-published" datetime="2022-06-16T08:51:28.000Z" itemprop="datePublished">2022-06-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/06/16/esxi-%E7%A1%AC%E7%9B%98%E9%94%99%E8%AF%AF%E8%AF%BB%E5%86%99%E8%AE%B0%E5%BD%95%E5%8F%8A%E5%B0%9D%E8%AF%95%E4%BF%AE%E6%94%B9/">esxi-硬盘错误读写记录及尝试修改</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="2022-6-16错误记录"><a href="#2022-6-16错误记录" class="headerlink" title="2022-6-16错误记录"></a>2022-6-16错误记录</h1><h2 id="错误记录"><a href="#错误记录" class="headerlink" title="错误记录"></a>错误记录</h2><p>对System2硬盘（金士顿 480G）读取两次失败后崩溃所有虚拟机，</p>
+<h2 id="检查"><a href="#检查" class="headerlink" title="检查"></a>检查</h2><p>经检查，硬盘SATA线无松动，电源线无松动，使用CrystalDiskInfo检测硬盘读写48T，无错误，寿命显示80%，京东显示额定寿命160TBW,但硬盘开机时间达1年多，2019年7月购入至今3年，日均使用时间超过8小时，不知是否有关。</p>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>重启后错误消失，有待进一步观察。 </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/06/16/esxi-%E7%A1%AC%E7%9B%98%E9%94%99%E8%AF%AF%E8%AF%BB%E5%86%99%E8%AE%B0%E5%BD%95%E5%8F%8A%E5%B0%9D%E8%AF%95%E4%BF%AE%E6%94%B9/" data-id="cl4gsh9j60000rz8egh857oyq" data-title="esxi-硬盘错误读写记录及尝试修改" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-算法-有关完全m叉树的子节点和父节点位置推导" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/04/04/%E7%AE%97%E6%B3%95-%E6%9C%89%E5%85%B3%E5%AE%8C%E5%85%A8m%E5%8F%89%E6%A0%91%E7%9A%84%E5%AD%90%E8%8A%82%E7%82%B9%E5%92%8C%E7%88%B6%E8%8A%82%E7%82%B9%E4%BD%8D%E7%BD%AE%E6%8E%A8%E5%AF%BC/" class="article-date">
+  <time class="dt-published" datetime="2022-04-04T12:29:38.000Z" itemprop="datePublished">2022-04-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/04/04/%E7%AE%97%E6%B3%95-%E6%9C%89%E5%85%B3%E5%AE%8C%E5%85%A8m%E5%8F%89%E6%A0%91%E7%9A%84%E5%AD%90%E8%8A%82%E7%82%B9%E5%92%8C%E7%88%B6%E8%8A%82%E7%82%B9%E4%BD%8D%E7%BD%AE%E6%8E%A8%E5%AF%BC/">算法-有关完全m叉树的子节点和父节点位置推导</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="题目来源"><a href="#题目来源" class="headerlink" title="题目来源"></a>题目来源</h1><p>来自王道408考研书2023版134页第4大题2、3小问，假设一个完全m叉树的节点序号为i（层序，根节点1），那么它的父节点和子节点序号是多少？</p>
+<h1 id="推导"><a href="#推导" class="headerlink" title="推导"></a>推导</h1><p>不妨假设这个节点的序号为$i$,它位于二叉树的第$h$层，对于这样一个节点，可以得知，他的上面有$h-1$层节点，姑且把这些节点称作节点$i$的长辈节点。<br>那么长辈节点的总数为<script type="math/tex">\frac{m^{h-1}-1}{m-1} \tag{1}</script><br>将在节点$i$前面，并与它同层的节点叫做它的兄节点，根据数量关系，它的兄节点共有<script type="math/tex">i-\frac{m^{h-1}-1}{m-1}-1\tag{2}</script>个，<br>在$i$节点的第一个子节点前，有这样的节点：与$i$节点同辈或比$i$节点长辈的节点，共计$\frac{m^{h}-1}{m-1}-1$个，它的兄节点的子节点，共计$m*(i-\frac{m^{h-1}-1}{m-1}-1)$个<br>那么它的第一个子节点的序号为</p>
+<script type="math/tex; mode=display">m*(i-\frac{m^{h-1}-1}{m-1}-1)+\frac{m^{h}-1}{m-1}</script><p>化简后为$(i-1)*m+2$</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/04/04/%E7%AE%97%E6%B3%95-%E6%9C%89%E5%85%B3%E5%AE%8C%E5%85%A8m%E5%8F%89%E6%A0%91%E7%9A%84%E5%AD%90%E8%8A%82%E7%82%B9%E5%92%8C%E7%88%B6%E8%8A%82%E7%82%B9%E4%BD%8D%E7%BD%AE%E6%8E%A8%E5%AF%BC/" data-id="cl1m7xjp000040n8e5kzmb1z0" data-title="算法-有关完全m叉树的子节点和父节点位置推导" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-c-有关-h和-cpp文件的一些" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/03/29/c-%E6%9C%89%E5%85%B3-h%E5%92%8C-cpp%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%80%E4%BA%9B/" class="article-date">
@@ -112,8 +194,7 @@
     void hw()&#123;
             cout&lt;&lt;&quot;hello world&quot;&lt;&lt;endl;
     &#125;
-</code></pre>
-<h1 id="简单经验"><a href="#简单经验" class="headerlink" title="简单经验"></a>简单经验</h1><p>在vs实际编译的过程中，实际上会对所有的代码文件同时编译，这样就会存在两个”test.cpp”里的内容，而h文件则是不会被编译的，因此不会产生这样的问题，但是这样的答案显然只停留在了表象，那么更深层次的原因是什么？</p>
+</code></pre><h1 id="简单经验"><a href="#简单经验" class="headerlink" title="简单经验"></a>简单经验</h1><p>在vs实际编译的过程中，实际上会对所有的代码文件同时编译，这样就会存在两个”test.cpp”里的内容，而h文件则是不会被编译的，因此不会产生这样的问题，但是这样的答案显然只停留在了表象，那么更深层次的原因是什么？</p>
 <h1 id="一些测试"><a href="#一些测试" class="headerlink" title="一些测试"></a>一些测试</h1><h2 id="代码的编译过程"><a href="#代码的编译过程" class="headerlink" title="代码的编译过程"></a>代码的编译过程</h2><p>通过最基础的编译原理课程，软件的编写分成“预处理-编辑-汇编-链接”过程，在预处理过程中，头文件和宏定义被展开，那么也是在这一步，include的东西被包含进代码，使用gcc进行分步操作就可以看到。</p>
 <p>在连接器中，整个代码的不同部分被链接成一体，理论是也是在这一步，产生了错误，gcc的报错如下</p>
 <h2 id="program-once"><a href="#program-once" class="headerlink" title="program once"></a>program once</h2><p>由编译器实现的，避免一个文件被include多次的方法，使用vs新建一个.h文件时，就会自动包含这个项目，那么问题来了，使用progmram once这个参数能不能避免.cpp文件被包含两次呢？</p>
@@ -126,7 +207,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/29/c-%E6%9C%89%E5%85%B3-h%E5%92%8C-cpp%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%80%E4%BA%9B/" data-id="cl1cbwpl90000558e2kcg3zf4" data-title="c++-有关.h和.cpp文件的一些" class="article-share-link">分享</a>
+      <a data-url="http://example.com/2022/03/29/c-%E6%9C%89%E5%85%B3-h%E5%92%8C-cpp%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%80%E4%BA%9B/" data-id="cl1m7xjoo00000n8e7lye1sjb" data-title="c++-有关.h和.cpp文件的一些" class="article-share-link">分享</a>
       
       
       
@@ -172,12 +253,9 @@
 <p>使用树莓派4b实在是迫不得已，在购买时树莓派还没出8g版本，不然我肯定上8G了。储存卡的话，本来手里还有一张A2级别的，但是经过我的测试，实际提升不大，所以就把那张卡塞到我的相机里了。充电器的话，我还是第一次知道公牛有买充电器的，当时出游忘记带充电器所以在路边小店买的，具体性能，纹波什么的我都没有测过，反正是可以用</p>
 <p>软件计划使用</p>
 <ol>
-<li><p>rdesktop作为远程桌面，用来在临时情况下控制我摆在客厅的htpc</p>
-</li>
-<li><p>wps作为办公套件</p>
-</li>
-<li><p>kodi用来娱乐</p>
-</li>
+<li>rdesktop作为远程桌面，用来在临时情况下控制我摆在客厅的htpc</li>
+<li>wps作为办公套件</li>
+<li>kodi用来娱乐</li>
 <li><p>谷歌拼音输入法很不错，也安排上</p>
 <p> 但是在实际安装这些软件的过程中，我还是挺没把握的，众所周知树莓派的性能非常的孱弱，因此也是走一步看一部的安装这些东西，本来计划是哪些用不了直接删掉，结果可喜可贺的是都能用。</p>
 </li>
@@ -187,21 +265,18 @@
 <h2 id="安装过程·软件"><a href="#安装过程·软件" class="headerlink" title="安装过程·软件"></a>安装过程·软件</h2><h3 id="前期设置"><a href="#前期设置" class="headerlink" title="前期设置"></a>前期设置</h3><p>安装软件之前先测试树莓派的功能都正常使用，然后在Raspberry Pi Configuration - Performance - GPU Memory 里面修改gpu的显存为256M，在增加树莓派显存时发现，如果大于256MB，重启树莓派，出现了”CMA size reduced to 256MB(total_mem) 4096MB,gpu_mem 512MB”的提示，查资料后发现大概意思是说连续内存分配问题，在树莓派上最大连续内存是256MB，所以我就只保留了256MB的显存。</p>
 <h3 id="输入法"><a href="#输入法" class="headerlink" title="输入法"></a>输入法</h3><p>先安装拼音输入法，打开树莓派的命令行界面，</p>
 <pre><code>sudo apt-get install fcitx fcitx-googlepinyin
-</code></pre>
-<p>等安装完，重启设备，在Prereference-“Fcitx Configuration”里面设置默认的输入法，就能使用了，另外最好设置一下输入法的切换方式，在树莓派右上角的输入法那里右键，打开设置界面设置一下，有助于linux和windows的操作统一。</p>
-<h3 id="vsCode"><a href="#vsCode" class="headerlink" title="vsCode"></a>vsCode</h3><p>作为一个准程序员，我对电脑的要求肯定包含写代码这一项，但是visual studio，idea这种ide我总觉得会榨干我树莓派的内存，所以干脆使用一个比较基础的代码编辑器，想到vscode是开源的，大不了自己重新编译一个arm的版本，我就去官网搜了一下，然后发现在vc官网的<a target="_blank" rel="noopener" href="https://code.visualstudio.com/#alt-downloads">其他下载</a>里面，有非常全的下载链接，就直接用了现有的deb包，下载下来后最直接使用<br>    dpkg -i &lt;包名&gt;<br>进行一个安装，就可以了。</p>
+</code></pre><p>等安装完，重启设备，在Prereference-“Fcitx Configuration”里面设置默认的输入法，就能使用了，另外最好设置一下输入法的切换方式，在树莓派右上角的输入法那里右键，打开设置界面设置一下，有助于linux和windows的操作统一。</p>
+<h3 id="vsCode"><a href="#vsCode" class="headerlink" title="vsCode"></a>vsCode</h3><p>作为一个准程序员，我对电脑的要求肯定包含写代码这一项，但是visual studio，idea这种ide我总觉得会榨干我树莓派的内存，所以干脆使用一个比较基础的代码编辑器，想到vscode是开源的，大不了自己重新编译一个arm的版本，我就去官网搜了一下，然后发现在vc官网的<a target="_blank" rel="noopener" href="https://code.visualstudio.com/#alt-downloads">其他下载</a>里面，有非常全的下载链接，就直接用了现有的deb包，下载下来后最直接使用<br>    dpkg -i \&lt;包名><br>进行一个安装，就可以了。</p>
 <p>树莓派自带了python和c++的编译环境，然后再执行以下命令<br>    sudo apt-get install openjdk-17-jdk<br>    sudo apt-get install golang<br>安装常用的编程语言，就算是配好和树莓派上的开发环境。</p>
 <h3 id="文档编辑"><a href="#文档编辑" class="headerlink" title="文档编辑"></a>文档编辑</h3><p>最开始我打算使用的是树莓派自带的一套Libreoffice，但是实际上使用效果并不好，特别是保存的时候，默认格式并不是doc或者docx这种，最后惊喜的在wps官网发现了给ARM64处理器准备的WPS，于是决定就是它了。</p>
 <p>在官网上下载安装包，执行<br>    sudo dpkg -i “path”</p>
 <p>就可以安装，在第一遍安装的时候，提示缺少一个”libglu1-mesa”的东西，直接装就好，那个套件可以直接使用apt安装，执行</p>
 <pre><code>sudo apt install libglu1-mesa 
 sudo dpkg -i &quot;path&quot;
-</code></pre>
-<p>就可以了，最后，这个wps套件会出现在树莓派的“开始”菜单里面，感谢神奇的dpkg什么的，应该是它自己处理的。</p>
+</code></pre><p>就可以了，最后，这个wps套件会出现在树莓派的“开始”菜单里面，感谢神奇的dpkg什么的，应该是它自己处理的。</p>
 <h3 id="影音系统"><a href="#影音系统" class="headerlink" title="影音系统"></a>影音系统</h3><p>影音系统使用的是Kodi，一个很著名的电视盒子，一方面可以使用网络视频资源进行电视的观看，另一方面也支持本地smb或者是nfs格式的共享，正好可以和我服务器的资源库连起来。</p>
 <pre><code>sudo apt install kodi
-</code></pre>
-<p>安装倒是简单，但是在实际使用的时候有几个不大不小的雷</p>
+</code></pre><p>安装倒是简单，但是在实际使用的时候有几个不大不小的雷</p>
 <ol>
 <li>默认分辨率是1280，要自己改成1920</li>
 <li>更改语言之前，要先font里更改字体，不然会变成框框</li>
@@ -214,7 +289,7 @@ sudo dpkg -i &quot;path&quot;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/26/%E7%94%B5%E5%AD%90%E7%8E%A9%E5%85%B7-%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E5%8A%9E%E5%85%AC/" data-id="cl181swmi0000oc8e510c600k" data-title="电子玩具_使用树莓派办公" class="article-share-link">分享</a>
+      <a data-url="http://example.com/2022/03/26/%E7%94%B5%E5%AD%90%E7%8E%A9%E5%85%B7-%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E5%8A%9E%E5%85%AC/" data-id="cl1m7xjoz00030n8e5quo5bfy" data-title="电子玩具_使用树莓派办公" class="article-share-link">分享</a>
       
       
       
@@ -253,7 +328,7 @@ sudo dpkg -i &quot;path&quot;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/24/text1/" data-id="cl14zt8bg0000qd8e3gicfdjv" data-title="text1" class="article-share-link">分享</a>
+      <a data-url="http://example.com/2022/03/24/text1/" data-id="cl1m7xjox00020n8e5bti7hye" data-title="text1" class="article-share-link">分享</a>
       
       
       
@@ -289,22 +364,18 @@ sudo dpkg -i &quot;path&quot;
       
         <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
 <h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
 <h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/22/hello-world/" data-id="cl120bpau0000dd8ecbjz728x" data-title="Hello World" class="article-share-link">分享</a>
+      <a data-url="http://example.com/2022/03/22/hello-world/" data-id="cl1m7xjov00010n8eab84c7an" data-title="Hello World" class="article-share-link">分享</a>
       
       
       
@@ -334,7 +405,7 @@ sudo dpkg -i &quot;path&quot;
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a></li></ul>
     </div>
   </div>
 
@@ -347,6 +418,14 @@ sudo dpkg -i &quot;path&quot;
       <ul>
         
           <li>
+            <a href="/2022/06/16/esxi-%E7%A1%AC%E7%9B%98%E9%94%99%E8%AF%AF%E8%AF%BB%E5%86%99%E8%AE%B0%E5%BD%95%E5%8F%8A%E5%B0%9D%E8%AF%95%E4%BF%AE%E6%94%B9/">esxi-硬盘错误读写记录及尝试修改</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/04/%E7%AE%97%E6%B3%95-%E6%9C%89%E5%85%B3%E5%AE%8C%E5%85%A8m%E5%8F%89%E6%A0%91%E7%9A%84%E5%AD%90%E8%8A%82%E7%82%B9%E5%92%8C%E7%88%B6%E8%8A%82%E7%82%B9%E4%BD%8D%E7%BD%AE%E6%8E%A8%E5%AF%BC/">算法-有关完全m叉树的子节点和父节点位置推导</a>
+          </li>
+        
+          <li>
             <a href="/2022/03/29/c-%E6%9C%89%E5%85%B3-h%E5%92%8C-cpp%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%80%E4%BA%9B/">c++-有关.h和.cpp文件的一些</a>
           </li>
         
@@ -356,10 +435,6 @@ sudo dpkg -i &quot;path&quot;
         
           <li>
             <a href="/2022/03/24/text1/">text1</a>
-          </li>
-        
-          <li>
-            <a href="/2022/03/22/hello-world/">Hello World</a>
           </li>
         
       </ul>

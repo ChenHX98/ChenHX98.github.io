@@ -107,12 +107,9 @@
 <p>使用树莓派4b实在是迫不得已，在购买时树莓派还没出8g版本，不然我肯定上8G了。储存卡的话，本来手里还有一张A2级别的，但是经过我的测试，实际提升不大，所以就把那张卡塞到我的相机里了。充电器的话，我还是第一次知道公牛有买充电器的，当时出游忘记带充电器所以在路边小店买的，具体性能，纹波什么的我都没有测过，反正是可以用</p>
 <p>软件计划使用</p>
 <ol>
-<li><p>rdesktop作为远程桌面，用来在临时情况下控制我摆在客厅的htpc</p>
-</li>
-<li><p>wps作为办公套件</p>
-</li>
-<li><p>kodi用来娱乐</p>
-</li>
+<li>rdesktop作为远程桌面，用来在临时情况下控制我摆在客厅的htpc</li>
+<li>wps作为办公套件</li>
+<li>kodi用来娱乐</li>
 <li><p>谷歌拼音输入法很不错，也安排上</p>
 <p> 但是在实际安装这些软件的过程中，我还是挺没把握的，众所周知树莓派的性能非常的孱弱，因此也是走一步看一部的安装这些东西，本来计划是哪些用不了直接删掉，结果可喜可贺的是都能用。</p>
 </li>
@@ -122,21 +119,18 @@
 <h2 id="安装过程·软件"><a href="#安装过程·软件" class="headerlink" title="安装过程·软件"></a>安装过程·软件</h2><h3 id="前期设置"><a href="#前期设置" class="headerlink" title="前期设置"></a>前期设置</h3><p>安装软件之前先测试树莓派的功能都正常使用，然后在Raspberry Pi Configuration - Performance - GPU Memory 里面修改gpu的显存为256M，在增加树莓派显存时发现，如果大于256MB，重启树莓派，出现了”CMA size reduced to 256MB(total_mem) 4096MB,gpu_mem 512MB”的提示，查资料后发现大概意思是说连续内存分配问题，在树莓派上最大连续内存是256MB，所以我就只保留了256MB的显存。</p>
 <h3 id="输入法"><a href="#输入法" class="headerlink" title="输入法"></a>输入法</h3><p>先安装拼音输入法，打开树莓派的命令行界面，</p>
 <pre><code>sudo apt-get install fcitx fcitx-googlepinyin
-</code></pre>
-<p>等安装完，重启设备，在Prereference-“Fcitx Configuration”里面设置默认的输入法，就能使用了，另外最好设置一下输入法的切换方式，在树莓派右上角的输入法那里右键，打开设置界面设置一下，有助于linux和windows的操作统一。</p>
-<h3 id="vsCode"><a href="#vsCode" class="headerlink" title="vsCode"></a>vsCode</h3><p>作为一个准程序员，我对电脑的要求肯定包含写代码这一项，但是visual studio，idea这种ide我总觉得会榨干我树莓派的内存，所以干脆使用一个比较基础的代码编辑器，想到vscode是开源的，大不了自己重新编译一个arm的版本，我就去官网搜了一下，然后发现在vc官网的<a target="_blank" rel="noopener" href="https://code.visualstudio.com/#alt-downloads">其他下载</a>里面，有非常全的下载链接，就直接用了现有的deb包，下载下来后最直接使用<br>    dpkg -i &lt;包名&gt;<br>进行一个安装，就可以了。</p>
+</code></pre><p>等安装完，重启设备，在Prereference-“Fcitx Configuration”里面设置默认的输入法，就能使用了，另外最好设置一下输入法的切换方式，在树莓派右上角的输入法那里右键，打开设置界面设置一下，有助于linux和windows的操作统一。</p>
+<h3 id="vsCode"><a href="#vsCode" class="headerlink" title="vsCode"></a>vsCode</h3><p>作为一个准程序员，我对电脑的要求肯定包含写代码这一项，但是visual studio，idea这种ide我总觉得会榨干我树莓派的内存，所以干脆使用一个比较基础的代码编辑器，想到vscode是开源的，大不了自己重新编译一个arm的版本，我就去官网搜了一下，然后发现在vc官网的<a target="_blank" rel="noopener" href="https://code.visualstudio.com/#alt-downloads">其他下载</a>里面，有非常全的下载链接，就直接用了现有的deb包，下载下来后最直接使用<br>    dpkg -i \&lt;包名><br>进行一个安装，就可以了。</p>
 <p>树莓派自带了python和c++的编译环境，然后再执行以下命令<br>    sudo apt-get install openjdk-17-jdk<br>    sudo apt-get install golang<br>安装常用的编程语言，就算是配好和树莓派上的开发环境。</p>
 <h3 id="文档编辑"><a href="#文档编辑" class="headerlink" title="文档编辑"></a>文档编辑</h3><p>最开始我打算使用的是树莓派自带的一套Libreoffice，但是实际上使用效果并不好，特别是保存的时候，默认格式并不是doc或者docx这种，最后惊喜的在wps官网发现了给ARM64处理器准备的WPS，于是决定就是它了。</p>
 <p>在官网上下载安装包，执行<br>    sudo dpkg -i “path”</p>
 <p>就可以安装，在第一遍安装的时候，提示缺少一个”libglu1-mesa”的东西，直接装就好，那个套件可以直接使用apt安装，执行</p>
 <pre><code>sudo apt install libglu1-mesa 
 sudo dpkg -i &quot;path&quot;
-</code></pre>
-<p>就可以了，最后，这个wps套件会出现在树莓派的“开始”菜单里面，感谢神奇的dpkg什么的，应该是它自己处理的。</p>
+</code></pre><p>就可以了，最后，这个wps套件会出现在树莓派的“开始”菜单里面，感谢神奇的dpkg什么的，应该是它自己处理的。</p>
 <h3 id="影音系统"><a href="#影音系统" class="headerlink" title="影音系统"></a>影音系统</h3><p>影音系统使用的是Kodi，一个很著名的电视盒子，一方面可以使用网络视频资源进行电视的观看，另一方面也支持本地smb或者是nfs格式的共享，正好可以和我服务器的资源库连起来。</p>
 <pre><code>sudo apt install kodi
-</code></pre>
-<p>安装倒是简单，但是在实际使用的时候有几个不大不小的雷</p>
+</code></pre><p>安装倒是简单，但是在实际使用的时候有几个不大不小的雷</p>
 <ol>
 <li>默认分辨率是1280，要自己改成1920</li>
 <li>更改语言之前，要先font里更改字体，不然会变成框框</li>
@@ -149,7 +143,7 @@ sudo dpkg -i &quot;path&quot;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/26/%E7%94%B5%E5%AD%90%E7%8E%A9%E5%85%B7-%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E5%8A%9E%E5%85%AC/" data-id="cl181swmi0000oc8e510c600k" data-title="电子玩具_使用树莓派办公" class="article-share-link">分享</a>
+      <a data-url="http://example.com/2022/03/26/%E7%94%B5%E5%AD%90%E7%8E%A9%E5%85%B7-%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E5%8A%9E%E5%85%AC/" data-id="cl1m7xjoz00030n8e5quo5bfy" data-title="电子玩具_使用树莓派办公" class="article-share-link">分享</a>
       
       
       
@@ -196,7 +190,7 @@ sudo dpkg -i &quot;path&quot;
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a></li></ul>
     </div>
   </div>
 
@@ -209,6 +203,14 @@ sudo dpkg -i &quot;path&quot;
       <ul>
         
           <li>
+            <a href="/2022/06/16/esxi-%E7%A1%AC%E7%9B%98%E9%94%99%E8%AF%AF%E8%AF%BB%E5%86%99%E8%AE%B0%E5%BD%95%E5%8F%8A%E5%B0%9D%E8%AF%95%E4%BF%AE%E6%94%B9/">esxi-硬盘错误读写记录及尝试修改</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/04/%E7%AE%97%E6%B3%95-%E6%9C%89%E5%85%B3%E5%AE%8C%E5%85%A8m%E5%8F%89%E6%A0%91%E7%9A%84%E5%AD%90%E8%8A%82%E7%82%B9%E5%92%8C%E7%88%B6%E8%8A%82%E7%82%B9%E4%BD%8D%E7%BD%AE%E6%8E%A8%E5%AF%BC/">算法-有关完全m叉树的子节点和父节点位置推导</a>
+          </li>
+        
+          <li>
             <a href="/2022/03/29/c-%E6%9C%89%E5%85%B3-h%E5%92%8C-cpp%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%80%E4%BA%9B/">c++-有关.h和.cpp文件的一些</a>
           </li>
         
@@ -218,10 +220,6 @@ sudo dpkg -i &quot;path&quot;
         
           <li>
             <a href="/2022/03/24/text1/">text1</a>
-          </li>
-        
-          <li>
-            <a href="/2022/03/22/hello-world/">Hello World</a>
           </li>
         
       </ul>
