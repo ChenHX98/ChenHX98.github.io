@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>gitlab-pull到github踩坑记 | Hello world!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="不想读全文的看这里这个功能是付费的，下面是具体经历。 起因github半墙的状态下，本来打算用gitlab做一个缓冲区，平常写的代码就推到gitlab上，然后定期从gitlab推到github上，想想就美。 到此都很顺利按照gitlab官网的指引,ssh连上后一个  curl -s https:&#x2F;&#x2F;packages.gitlab.com&#x2F;install&#x2F;repositories&#x2F;gitlab&#x2F;gi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gitlab-pull到github踩坑记">
+<meta property="og:url" content="http://example.com/2022/06/17/gitlab-%E5%85%A5%E5%9D%91%E5%88%B0%E9%80%80%E5%9D%91%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Hello world!">
+<meta property="og:description" content="不想读全文的看这里这个功能是付费的，下面是具体经历。 起因github半墙的状态下，本来打算用gitlab做一个缓冲区，平常写的代码就推到gitlab上，然后定期从gitlab推到github上，想想就美。 到此都很顺利按照gitlab官网的指引,ssh连上后一个  curl -s https:&#x2F;&#x2F;packages.gitlab.com&#x2F;install&#x2F;repositories&#x2F;gitlab&#x2F;gi">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-17T16:27:56.000Z">
+<meta property="article:modified_time" content="2022-06-17T16:51:50.705Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hello world!" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hello world!</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-gitlab-入坑到退坑记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/17/gitlab-%E5%85%A5%E5%9D%91%E5%88%B0%E9%80%80%E5%9D%91%E8%AE%B0/" class="article-date">
+  <time class="dt-published" datetime="2022-06-17T16:27:56.000Z" itemprop="datePublished">2022-06-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      gitlab-pull到github踩坑记
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="不想读全文的看这里"><a href="#不想读全文的看这里" class="headerlink" title="不想读全文的看这里"></a>不想读全文的看这里</h1><p>这个功能是付费的，下面是具体经历。</p>
+<h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>github半墙的状态下，本来打算用gitlab做一个缓冲区，平常写的代码就推到gitlab上，然后定期从gitlab推到github上，想想就美。</p>
+<h1 id="到此都很顺利"><a href="#到此都很顺利" class="headerlink" title="到此都很顺利"></a>到此都很顺利</h1><p>按照<a target="_blank" rel="noopener" href="https://packages.gitlab.com/gitlab/gitlab-ce">gitlab官网</a>的指引,<br>ssh连上后一个</p>
+<blockquote>
+<p>curl -s <a target="_blank" rel="noopener" href="https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh">https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh</a> | sudo bash</p>
+</blockquote>
+<p>敲进去，然后紧接着就是一个apt-install，gitlab就装到服务器里了，然后</p>
+<blockquote>
+<p>gitlab-ctl reconfigure</p>
+</blockquote>
+<p>启动，在浏览器里直接输入ip就能连上，默认的用户是root，密码在/etc/gitlab/initial_root_password里，旁边还有个配置文件，可以自己改，登进去后改一下root的用户密码。</p>
+<p>然后注册一个自己的账号，用root权限批准一下，就能进自己的账户。进了账户后直接新建仓库-从其他位置导入-github，在github里新建个token敲进去，就能看见自己在github上的仓库，然后看顺眼的直接同步下来，就可以在gitlab里编辑了。</p>
+<h1 id="然后一下子就不顺利了"><a href="#然后一下子就不顺利了" class="headerlink" title="然后一下子就不顺利了"></a>然后一下子就不顺利了</h1><h2 id="向github推送"><a href="#向github推送" class="headerlink" title="向github推送"></a>向github推送</h2><p>目标是github和gitlab的双向同步，那肯定就得两边一起动，先研究怎么把gitlab的东西推到github上去，在仓库的设置里最下面的设置有一个仓库分支，里面有个镜像仓库，写的是http，https，ssh什么的都行，但是到我放弃为止，我只调通了http的。</p>
+<p>从github复制的仓库是 <a target="_blank" rel="noopener" href="https://github.com/用户名/仓库.git">https://github.com/用户名/仓库.git</a> 形式的，但是在gitlab的镜像仓库填写的时候，要写成 https:// <strong>用户名@</strong> github.com/用户名/仓库.git的形式，密码也不能填密码，要填token。</p>
+<p>但是不管怎么说，我是把本地的东西推到github上了，成功已经出现在地平线上。</p>
+<h2 id="从github拉取"><a href="#从github拉取" class="headerlink" title="从github拉取"></a>从github拉取</h2><p>然后就是我彻底放弃gitlab的原因。研究github的拉取的时候，网上的教程全是怎么用github的仓库初始化gitlab的仓库的，并没有github更新后怎么同步的，于是我就开始自己的尝试。</p>
+<p>一开始我以为gitlab既然能从github拉仓库初始化，那肯定就能登到github那边啊，那还不是优雅的自动同步？这是我对gitlab的第一个误解。</p>
+<p>好在因为我家网属于那种墙中墙，我需要研究一下怎么手动同步，第一反应肯定是在镜像仓库啊，然而镜像仓库默认的就是push，而且是灰的，鼠标放上去还会有一个特别醒目的禁止符号。</p>
+<p>难道是被管理员禁了？我有上root账号找了一圈，别说解禁了，root也不能pull，那就很神奇了，然后我又找是不是别的设置，发现也不行，中间还手贱进行了一次push镜像，结果gitlab默认带-f，直接覆盖了我github上的东西，好在我是新建的测试仓库整这个，总算是没干掉我的代码。</p>
+<p>终于忍无可忍，搬梯子上墙，然后我在他的官网看到了<a target="_blank" rel="noopener" href="https://gitlab.com/gitlab-org/gitlab/-/issues/290953">这样一个issue</a>，深深感觉自己被玩了。</p>
+<p>gitlab pull到别的仓库的功能是付费的！然后它还不想要这个钱，不告诉你付费就能用！</p>
+<p>虽然在github改完了重新导入仓库也不失一种解决办法，但是不管怎么说这玩意的复杂程度已经超过我预期了我干脆在服务器开个共享代码区，然后定期跑脚本pull和push来的舒服一点。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/06/17/gitlab-%E5%85%A5%E5%9D%91%E5%88%B0%E9%80%80%E5%9D%91%E8%AE%B0/" data-id="cl4iouvmp0000mm8ea6ha9w0z" data-title="gitlab-pull到github踩坑记" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/06/16/esxi-%E7%A1%AC%E7%9B%98%E9%94%99%E8%AF%AF%E8%AF%BB%E5%86%99%E8%AE%B0%E5%BD%95%E5%8F%8A%E5%B0%9D%E8%AF%95%E4%BF%AE%E6%94%B9/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">esxi-硬盘错误读写记录及尝试修改</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/06/17/gitlab-%E5%85%A5%E5%9D%91%E5%88%B0%E9%80%80%E5%9D%91%E8%AE%B0/">gitlab-pull到github踩坑记</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/16/esxi-%E7%A1%AC%E7%9B%98%E9%94%99%E8%AF%AF%E8%AF%BB%E5%86%99%E8%AE%B0%E5%BD%95%E5%8F%8A%E5%B0%9D%E8%AF%95%E4%BF%AE%E6%94%B9/">esxi-硬盘错误读写记录及尝试修改</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/04/%E7%AE%97%E6%B3%95-%E6%9C%89%E5%85%B3%E5%AE%8C%E5%85%A8m%E5%8F%89%E6%A0%91%E7%9A%84%E5%AD%90%E8%8A%82%E7%82%B9%E5%92%8C%E7%88%B6%E8%8A%82%E7%82%B9%E4%BD%8D%E7%BD%AE%E6%8E%A8%E5%AF%BC/">算法-有关完全m叉树的子节点和父节点位置推导</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/29/c-%E6%9C%89%E5%85%B3-h%E5%92%8C-cpp%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%80%E4%BA%9B/">c++-有关.h和.cpp文件的一些</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/26/%E7%94%B5%E5%AD%90%E7%8E%A9%E5%85%B7-%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E5%8A%9E%E5%85%AC/">电子玩具_使用树莓派办公</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -71,6 +71,66 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-gitlab-入坑到退坑记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/17/gitlab-%E5%85%A5%E5%9D%91%E5%88%B0%E9%80%80%E5%9D%91%E8%AE%B0/" class="article-date">
+  <time class="dt-published" datetime="2022-06-17T16:27:56.000Z" itemprop="datePublished">2022-06-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/06/17/gitlab-%E5%85%A5%E5%9D%91%E5%88%B0%E9%80%80%E5%9D%91%E8%AE%B0/">gitlab-pull到github踩坑记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="不想读全文的看这里"><a href="#不想读全文的看这里" class="headerlink" title="不想读全文的看这里"></a>不想读全文的看这里</h1><p>这个功能是付费的，下面是具体经历。</p>
+<h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>github半墙的状态下，本来打算用gitlab做一个缓冲区，平常写的代码就推到gitlab上，然后定期从gitlab推到github上，想想就美。</p>
+<h1 id="到此都很顺利"><a href="#到此都很顺利" class="headerlink" title="到此都很顺利"></a>到此都很顺利</h1><p>按照<a target="_blank" rel="noopener" href="https://packages.gitlab.com/gitlab/gitlab-ce">gitlab官网</a>的指引,<br>ssh连上后一个</p>
+<blockquote>
+<p>curl -s <a target="_blank" rel="noopener" href="https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh">https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh</a> | sudo bash</p>
+</blockquote>
+<p>敲进去，然后紧接着就是一个apt-install，gitlab就装到服务器里了，然后</p>
+<blockquote>
+<p>gitlab-ctl reconfigure</p>
+</blockquote>
+<p>启动，在浏览器里直接输入ip就能连上，默认的用户是root，密码在/etc/gitlab/initial_root_password里，旁边还有个配置文件，可以自己改，登进去后改一下root的用户密码。</p>
+<p>然后注册一个自己的账号，用root权限批准一下，就能进自己的账户。进了账户后直接新建仓库-从其他位置导入-github，在github里新建个token敲进去，就能看见自己在github上的仓库，然后看顺眼的直接同步下来，就可以在gitlab里编辑了。</p>
+<h1 id="然后一下子就不顺利了"><a href="#然后一下子就不顺利了" class="headerlink" title="然后一下子就不顺利了"></a>然后一下子就不顺利了</h1><h2 id="向github推送"><a href="#向github推送" class="headerlink" title="向github推送"></a>向github推送</h2><p>目标是github和gitlab的双向同步，那肯定就得两边一起动，先研究怎么把gitlab的东西推到github上去，在仓库的设置里最下面的设置有一个仓库分支，里面有个镜像仓库，写的是http，https，ssh什么的都行，但是到我放弃为止，我只调通了http的。</p>
+<p>从github复制的仓库是 <a target="_blank" rel="noopener" href="https://github.com/用户名/仓库.git">https://github.com/用户名/仓库.git</a> 形式的，但是在gitlab的镜像仓库填写的时候，要写成 https:// <strong>用户名@</strong> github.com/用户名/仓库.git的形式，密码也不能填密码，要填token。</p>
+<p>但是不管怎么说，我是把本地的东西推到github上了，成功已经出现在地平线上。</p>
+<h2 id="从github拉取"><a href="#从github拉取" class="headerlink" title="从github拉取"></a>从github拉取</h2><p>然后就是我彻底放弃gitlab的原因。研究github的拉取的时候，网上的教程全是怎么用github的仓库初始化gitlab的仓库的，并没有github更新后怎么同步的，于是我就开始自己的尝试。</p>
+<p>一开始我以为gitlab既然能从github拉仓库初始化，那肯定就能登到github那边啊，那还不是优雅的自动同步？这是我对gitlab的第一个误解。</p>
+<p>好在因为我家网属于那种墙中墙，我需要研究一下怎么手动同步，第一反应肯定是在镜像仓库啊，然而镜像仓库默认的就是push，而且是灰的，鼠标放上去还会有一个特别醒目的禁止符号。</p>
+<p>难道是被管理员禁了？我有上root账号找了一圈，别说解禁了，root也不能pull，那就很神奇了，然后我又找是不是别的设置，发现也不行，中间还手贱进行了一次push镜像，结果gitlab默认带-f，直接覆盖了我github上的东西，好在我是新建的测试仓库整这个，总算是没干掉我的代码。</p>
+<p>终于忍无可忍，搬梯子上墙，然后我在他的官网看到了<a target="_blank" rel="noopener" href="https://gitlab.com/gitlab-org/gitlab/-/issues/290953">这样一个issue</a>，深深感觉自己被玩了。</p>
+<p>gitlab pull到别的仓库的功能是付费的！然后它还不想要这个钱，不告诉你付费就能用！</p>
+<p>虽然在github改完了重新导入仓库也不失一种解决办法，但是不管怎么说这玩意的复杂程度已经超过我预期了我干脆在服务器开个共享代码区，然后定期跑脚本pull和push来的舒服一点。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/06/17/gitlab-%E5%85%A5%E5%9D%91%E5%88%B0%E9%80%80%E5%9D%91%E8%AE%B0/" data-id="cl4iouvmp0000mm8ea6ha9w0z" data-title="gitlab-pull到github踩坑记" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-esxi-硬盘错误读写记录及尝试修改" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/06/16/esxi-%E7%A1%AC%E7%9B%98%E9%94%99%E8%AF%AF%E8%AF%BB%E5%86%99%E8%AE%B0%E5%BD%95%E5%8F%8A%E5%B0%9D%E8%AF%95%E4%BF%AE%E6%94%B9/" class="article-date">
@@ -95,7 +155,22 @@
       
         <h1 id="2022-6-16错误记录"><a href="#2022-6-16错误记录" class="headerlink" title="2022-6-16错误记录"></a>2022-6-16错误记录</h1><h2 id="错误记录"><a href="#错误记录" class="headerlink" title="错误记录"></a>错误记录</h2><p>对System2硬盘（金士顿 480G）读取两次失败后崩溃所有虚拟机，</p>
 <h2 id="检查"><a href="#检查" class="headerlink" title="检查"></a>检查</h2><p>经检查，硬盘SATA线无松动，电源线无松动，使用CrystalDiskInfo检测硬盘读写48T，无错误，寿命显示80%，京东显示额定寿命160TBW,但硬盘开机时间达1年多，2019年7月购入至今3年，日均使用时间超过8小时，不知是否有关。</p>
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>重启后错误消失，有待进一步观察。 </p>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>重启后错误消失，有待进一步观察。</p>
+<h1 id="2022-6-17"><a href="#2022-6-17" class="headerlink" title="2022-6-17"></a>2022-6-17</h1><h2 id="错误记录-1"><a href="#错误记录-1" class="headerlink" title="错误记录"></a>错误记录</h2><p>磁盘显示可用空间147G，新建4CPU，8G内存，128Glinux虚拟机时报磁盘存储空间不足错误。</p>
+<p>使用64G硬盘新建虚拟机成功，但在开机时报错“失败 - 模块“MonitorLoop”打开电源失败”</p>
+<blockquote>
+<p>模块“MonitorLoop”打开电源失败。<br>文件系统特定的 SetFileAttributes[file] 实施失败<br>无法将交换文件 /vmfs/volumes/61ec157e-c610a742-0cb6-00e0b4589bf7/gitlab/gitlab-f9d581c6.vswp 从 0 KB 扩展到 4194304 KB : No space left on device<br>当前的交换文件大小为 0 KB。<br>无法扩展虚拟机交换文件<br>无法打开虚拟机电源: 设备上没有剩余空间。<br>无法打开虚拟机电源。<br>无法启动虚拟机。</p>
+</blockquote>
+<h2 id="检查-1"><a href="#检查-1" class="headerlink" title="检查"></a>检查</h2><p>对虚拟机占用的所有存储进行统计，共计</p>
+<ul>
+<li>精简制备：256+32*2+64+64=448G</li>
+<li>厚制备：64G</li>
+<li>即将新建 64G</li>
+</ul>
+<p>共计：512+64G</p>
+<p>最近的错误是否和硬盘总计满有关？但精简制备应该不至于一次吃满。</p>
+<p>删除一个虚拟机后，新建恢复正常，是否esxi需要留有一定的机动空间？</p>
+<p>根据官网所述，可能是inode满了</p>
 
       
     </div>
@@ -418,6 +493,10 @@ sudo dpkg -i &quot;path&quot;
       <ul>
         
           <li>
+            <a href="/2022/06/17/gitlab-%E5%85%A5%E5%9D%91%E5%88%B0%E9%80%80%E5%9D%91%E8%AE%B0/">gitlab-pull到github踩坑记</a>
+          </li>
+        
+          <li>
             <a href="/2022/06/16/esxi-%E7%A1%AC%E7%9B%98%E9%94%99%E8%AF%AF%E8%AF%BB%E5%86%99%E8%AE%B0%E5%BD%95%E5%8F%8A%E5%B0%9D%E8%AF%95%E4%BF%AE%E6%94%B9/">esxi-硬盘错误读写记录及尝试修改</a>
           </li>
         
@@ -431,10 +510,6 @@ sudo dpkg -i &quot;path&quot;
         
           <li>
             <a href="/2022/03/26/%E7%94%B5%E5%AD%90%E7%8E%A9%E5%85%B7-%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E5%8A%9E%E5%85%AC/">电子玩具_使用树莓派办公</a>
-          </li>
-        
-          <li>
-            <a href="/2022/03/24/text1/">text1</a>
           </li>
         
       </ul>
